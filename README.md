@@ -1,5 +1,5 @@
-# ChessGameProject
-GAME LAYOUT
+# Game Layout
+
 1. A project for a two player fully working chess game using letters and numbers to move the pieces to represent the pieces (both the uppercase and lowercase):
 
 White pieces representation:
@@ -20,7 +20,7 @@ Black pieces representation:
 
 2. The game itself can be played against a bot as well
 
-GAME CONTROLS
+# Game Controls
 
 You can move the pieces on the board using the current position of the piece and the position you want to move it to
 For example:
