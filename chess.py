@@ -75,9 +75,11 @@ class Chess:
 
     def valid_move(self, curr_pos):
         moves = []
+        p_row = curr_pos[1]
+        p_col = curr_pos[0]
         for row in range(len(self.board)):
             for col in range(len(self.board)):
-                return
+                if 
         return moves
 
 
@@ -94,5 +96,28 @@ class Chess:
                     row += piece + "\n"
             print(i+1, "|"+row)   # prints out the row labels and the board next to it
         print("""   a b c d e f g h""")  # prints the columns of the board
+
+
+
+    def piece_dir_moves(self, piece):
+        """
+        This funciton returns the directions of which the piece can move on the board, mainly applies to all the pieces except for 
+        the king piece (k and K), the knight (N and n) and the pawn (P and p)
+        """
+        dir_moves = []
+        if piece.lower() == "k" or piece.lower() == "q":
+            moves = [(1, 1),(1, 0),(0, 1),(1, -1),(-1, 1),(-1, -1),(0, -1),(-1, 0)] 
+        elif piece == "p": # black pawn
+            moves = [(1, 0), (2, 0)]
+        elif piece == "P": # white pawn
+            moves = [(-1, 0), (-2, 0)]
+        elif piece.lower() == "n":
+            moves = [(2, 1),(2, -1),(-1, 2),(1, 2),(-2, 1),(-2, -1),(-1, -2),(1, -2)] 
+        elif piece.lower() == "b":
+            moves = [(1, 1), (1, -1), (-1, 1), (-1, -1)]
+        elif piece.lower() == "r":
+            moves = [(0, 1), (0, -1), (-1, 0), (1, 0)]
+        return moves
+
 
 game = Chess()
