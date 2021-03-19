@@ -40,7 +40,7 @@ class Chess:
             self.game_restart()
         elif (self.playerchoice.lower() == "check"):
             check_piece_pos = input("Enter the piece's position on the current board state to check for valid moves: ")
-            print(self.valid_move(check_piece_pos, self.board))
+            print(self.valid_move(check_piece_pos))
             self.player_choice()
         else:
             curr_pos, move_pos = (self.board[self.playerchoice[:2]][0], self.board[self.playerchoice[:2]][1]), (self.board[self.playerchoice[2:]][0], self.board[self.playerchoice[2:]][1])
@@ -73,8 +73,12 @@ class Chess:
 
 
 
-    def valid_move(self, curr_pos, board):
-        return
+    def valid_move(self, curr_pos):
+        moves = []
+        for row in range(len(self.board)):
+            for col in range(len(self.board)):
+                return
+        return moves
 
 
     def print_board(self, board):
