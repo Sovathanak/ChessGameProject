@@ -77,18 +77,21 @@ class Chess:
         valid_moves = []
         num_lst = [8,7,6,5,4,3,2,1]
         letter_lst = ["a","b","c","d","e","f","g","h"]
-        p_row = num_lst[int(curr_pos[1])]
+        p_row = num_lst[int(curr_pos[1]) - 1]
         p_col = int(ord(curr_pos[0]) - 97)
         piece_move = self.piece_dir_moves(self.board[p_row][p_col])
         for i in range(len(piece_move)):
-            if p_col + piece_move[i][1] > 7 and p_row + piece_move[i][0] > 7:
+            new_col = p_col + piece_move[i][1]
+            new_row = p_row + piece_move[i][0]
+            if new_col > 7 and new_row > 7:
                 pass
-            if p_col + piece_move[i][1] < 0 and p_row + piece_move[i][0] < 0:
+            if new_col < 0 and new_row < 0:
                 pass
-            elif p_col + piece_move[i][1] <= 7 and p_row + piece_move[i][0] <= 7 :
-                move_col = letter_lst[(p_col + piece_move[i][1])]
-                move_row = str(num_lst[(p_row + piece_move[i][0])])
-                valid_moves.append(move_col+move_row)
+            elif new_col <= 7 and new_row <= 7 :
+                if self.board[new_row][new_col] == ".":
+                    move_col = letter_lst[(new_col)]
+                    move_row = str(num_lst[(new_row)] + 1)
+                    valid_moves.append(move_col+move_row)
         print("\nValid moves for the piece: ")
         return valid_moves
 
