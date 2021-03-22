@@ -1,5 +1,3 @@
-from os import system, name
-
 class Chess:
     def __init__(self):
         self.player = None
@@ -22,8 +20,6 @@ class Chess:
         while self.game_over != True:
             print("\n========================================\n")
             self.player_choice()
-            if self.game_over != True:
-                self.print_board(self.board)
         print("\n==============Game Aborted==============\n")
 
 
@@ -33,6 +29,8 @@ class Chess:
 
 
     def player_choice(self):
+        if self.game_over != True:
+            self.print_board(self.board)
         print("Player " + str(self.player)+"'s turn, what do you want to do? ")
         self.playerchoice = input("Enter here: ")
         if (self.playerchoice.lower() == "quit"):
@@ -75,7 +73,7 @@ class Chess:
             msg = "\nInvalid position\n"
             return msg
         valid_moves = []
-        num_lst = [8,7,6,5,4,3,2,1]
+        num_lst = [7,6,5,4,3,2,1,0]
         letter_lst = ["a","b","c","d","e","f","g","h"]
         p_row = num_lst[int(curr_pos[1]) - 1]
         p_col = int(ord(curr_pos[0]) - 97)
@@ -83,12 +81,18 @@ class Chess:
         for i in range(len(piece_move)):
             new_col = p_col + piece_move[i][1]
             new_row = p_row + piece_move[i][0]
-            if new_col > 7 and new_row > 7:
-                pass
             if new_col < 0 and new_row < 0:
                 pass
             elif new_col <= 7 and new_row <= 7 :
-                if self.board[new_row][new_col] == ".":
+                white_new = self.board[new_row][new_col].isupper()
+                white_curr = self.board[p_row][p_col].isupper()
+                black_new = self.board[new_row][new_col].islower()
+                black_curr = self.board[p_row][p_col].islower()
+                if white_curr == True and black_new == True:
+                    move_col = letter_lst[(new_col)]
+                    move_row = str(num_lst[(new_row)] + 1)
+                    valid_moves.append(move_col+move_row)
+                elif black_curr == True and white_new == True:
                     move_col = letter_lst[(new_col)]
                     move_row = str(num_lst[(new_row)] + 1)
                     valid_moves.append(move_col+move_row)
