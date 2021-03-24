@@ -85,10 +85,9 @@ class ChessGameEngine:
                 pass
             elif new_col <= 7 and new_row <= 7 :
                 white_new = self.board[new_row][new_col].isupper()
-                white_curr = self.board[p_row][p_col].isupper()
-                black_new = self.board[new_row][new_col].islower()
                 black_curr = self.board[p_row][p_col].islower()
-                if (white_curr and black_new) or (black_curr and white_new) or self.board[new_row][new_col] == ".":
+                diff_color_pieces = (white_new and black_curr) or (not white_new and not black_curr)
+                if diff_color_pieces or self.board[new_row][new_col] == ".":
                     move_col = letter_lst[(new_col)]
                     move_row = str(num_lst[(new_row)] + 1)
                     valid_moves.append(move_col+move_row)
