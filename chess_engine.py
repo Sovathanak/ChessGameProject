@@ -36,7 +36,6 @@ class ChessGameEngine:
         print("""   a b c d e f g h""")  # prints the columns of the board
 
 
-
     def game_loop(self):
         self.print_board(self.board)
         while self.game_over != True:
@@ -57,10 +56,7 @@ class ChessGameEngine:
             print(self.valid_move(check_piece_pos))
             self.player_choice()
         else:
-            curr_pos = (self.board[self.user_input[:2]][0], self.board[self.user_input[:2]][1])
-            move_pos = (self.board[self.user_input[2:]][0], self.board[self.user_input[2:]][1])
-            if len(curr_pos) == 2 and len(move_pos) == 2:
-                return
+            self.move_piece(self.user_input)
 
 
     def swap_turn(self):
@@ -115,3 +111,10 @@ class ChessGameEngine:
         elif piece.lower() == "r":
             dir_moves = [(0, 1), (0, -1), (-1, 0), (1, 0)]
         return dir_moves
+
+
+    def move_piece(self, move):
+            curr_pos = (self.board[self.user_input[:2]][0], self.board[self.user_input[:2]][1])
+            move_pos = (self.board[self.user_input[2:]][0], self.board[self.user_input[2:]][1])
+            if len(curr_pos) == 2 and len(move_pos) == 2:
+                return
