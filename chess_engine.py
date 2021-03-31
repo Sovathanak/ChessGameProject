@@ -85,8 +85,11 @@ class ChessGameEngine:
                     if diff_color_pieces or self.board[new_row][new_col] == ".":
                         move_col = letter_lst[(new_col)]
                         move_row = str(num_lst[(new_row)] + 1)
-            elif self.board[pos[0]][pos[1]].lower() == "p":
-                pass
+            elif self.board[pos[0]][pos[1]] == "p" or self.board[pos[0]][pos[1]] == "P":
+                if self.board[pos[0]][pos[1]].islower():
+                    pass
+                else:
+                    pass
             elif self.board[pos[0]][pos[1]].lower() == "q" or self.board[pos[0]][pos[1]].lower() == "r" or self.board[pos[0]][pos[1]].lower() == "b":
                 pass
             valid_moves.append(move_col+move_row)
@@ -104,9 +107,9 @@ class ChessGameEngine:
         if piece.lower() == "k" or piece.lower() == "q":
             dir_moves = [(1, 1),(1, 0),(0, 1),(1, -1),(-1, 1),(-1, -1),(0, -1),(-1, 0)] 
         elif piece == "p": # black pawn
-            dir_moves = [(1, 0), (2, 0)]
+            dir_moves = [(1, 0), (2, 0), (1, 1), (1, -1)]
         elif piece == "P": # white pawn
-            dir_moves = [(-1, 0), (-2, 0)]
+            dir_moves = [(-1, 0), (-2, 0), (-1, 1), (-1, -1)]
         elif piece.lower() == "n":
             dir_moves = [(2, 1),(2, -1),(-1, 2),(1, 2),(-2, 1),(-2, -1),(-1, -2),(1, -2)] 
         elif piece.lower() == "b":
