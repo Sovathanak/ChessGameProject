@@ -14,13 +14,8 @@ class ChessGameEngine:
         self.game_loop()
 
 
-
-    def game_restart(self):
-        print("\n=============Game restarted=============\n")
-        self.__init__()
-
     def print_board(self, board):
-        k = 9
+        k = 8
         for i in range(len(board)):
             row = ""
             num = 0 # number of piece in each row
@@ -31,8 +26,8 @@ class ChessGameEngine:
                 else:
                     num += 1
                     row += piece + "\n"
-            k -= 1
             print(k, "|"+row)   # prints out the row labels and the board next to it
+            k -= 1
         print("""   a b c d e f g h""")  # prints the columns of the board
 
 
@@ -49,14 +44,13 @@ class ChessGameEngine:
         self.user_input = input("Enter here: ")
         if (self.user_input.lower() == "quit"):
             self.game_over = True
-        elif (self.user_input.lower() == "restart"):
-            self.game_restart()
         elif (self.user_input.lower() == "check"):
             check_piece_pos = str(input("Enter the piece's position on the current board state to check for valid moves: "))
             print(self.valid_move(check_piece_pos))
             self.player_choice()
         else:
             self.move_piece(self.user_input)
+            self.swap_turn()
 
 
     def swap_turn(self):
