@@ -57,16 +57,22 @@ class ChessGameEngine:
         if self.player == 1: self.player += 1
         else: self.player -= 1
 
+    def convert(self, position):
+        num_lst = [7,6,5,4,3,2,1,0]
+        letter_lst = ["a","b","c","d","e","f","g","h"]
+        real_row = num_lst[int(position[1]) - 1]
+        real_col = int(ord(position[0]) - 97)
+        return real_row, real_col 
+
 
     def valid_move(self, curr_pos):
         if len(curr_pos) > 2:
             msg = "\nInvalid position\n"
             return msg
         valid_moves = []
-        num_lst = [7,6,5,4,3,2,1,0]
-        letter_lst = ["a","b","c","d","e","f","g","h"]
-        p_row = num_lst[int(curr_pos[1]) - 1]
-        p_col = int(ord(curr_pos[0]) - 97)
+        pos = self.convert(curr_pos)
+        p_row = pos[0]
+        p_col = pos[1]
         piece_move = self.piece_dir_moves(self.board[p_row][p_col])
         for i in range(len(piece_move)):
             new_col = p_col + piece_move[i][1]
@@ -108,7 +114,7 @@ class ChessGameEngine:
 
 
     def move_piece(self, move):
-            curr_pos = (self.board[self.user_input[:2]][0], self.board[self.user_input[:2]][1])
-            move_pos = (self.board[self.user_input[2:]][0], self.board[self.user_input[2:]][1])
+            curr_pos = self.board[self.user_input[:2]]
+            move_pos = self.board[self.user_input[2:]]
             if len(curr_pos) == 2 and len(move_pos) == 2:
                 return
