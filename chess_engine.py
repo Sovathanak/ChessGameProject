@@ -70,9 +70,10 @@ class ChessGameEngine:
         real_row = num_lst[int(str_current_pos[1]) - 1]
         real_col = int(ord(str_current_pos[0]) - 97)
         valid_moves = []
-        piece_move = self.piece_dir_moves(self.board[real_row][real_col])
+        piece = self.board[real_row][real_col]
+        piece_move = self.piece_dir_moves(piece)
         for i in range(len(piece_move)):
-            if self.board[real_row][real_col].lower() == "k" or self.board[real_row][real_col].lower() == "n":
+            if piece.lower() == "k" or piece.lower() == "n":
                 new_col = real_col + piece_move[i][1]
                 new_row = real_row + piece_move[i][0]
                 if new_col < 0 and new_row < 0:
@@ -85,12 +86,18 @@ class ChessGameEngine:
                         move_col = letter_lst[(new_col)]
                         move_row = str(num_lst[(new_row)] + 1)
                         valid_moves.append(move_col + move_row)
-            elif self.board[real_row][real_col] == "p" or self.board[real_row][real_col] == "P":
-                if self.board[real_row][real_col].islower():
-                    pass
+            elif piece == "p" or piece == "P":
+                if piece.islower():
+                    if real_row == 1:
+                        pass
+                    else:
+                        pass
                 else:
-                    pass
-            elif self.board[real_row][real_col].lower() == "q" or self.board[real_row][real_col].lower() == "r" or self.board[real_row][real_col].lower() == "b":
+                    if real_row == 6:
+                        pass
+                    else:
+                        pass
+            elif piece.lower() == "q" or piece.lower() == "r" or piece.lower() == "b":
                 pass
             
         print("\nValid moves for the piece: ")
