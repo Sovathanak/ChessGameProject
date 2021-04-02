@@ -60,11 +60,17 @@ class ChessGameEngine:
         else: self.player -= 1
 
 
+    def different_color_check(self, curr_pos, new_pos):
+        white_curr = self.board[curr_pos[0]][curr_pos[1]].isupper()
+        black_new = self.board[new_pos[0]][new_pos[1]].islower()
+        diff_color_pieces = (white_curr and black_new) or (not white_curr and not black_new)
+        return diff_color_pieces
+
+
     def valid_move(self, str_current_pos):
         if len(str_current_pos) > 2:
             msg = "\nInvalid position\n"
             return msg
-        
         num_lst = [7,6,5,4,3,2,1,0]
         letter_lst = ["a","b","c","d","e","f","g","h"]
         real_row = num_lst[int(str_current_pos[1]) - 1]
@@ -72,24 +78,24 @@ class ChessGameEngine:
         valid_moves = []
         piece = self.board[real_row][real_col]
         piece_move = self.piece_dir_moves(piece)
-        for i in range(len(piece_move)):
+        for move in piece_move:
             if piece.lower() == "k" or piece.lower() == "n":
-                new_col = real_col + piece_move[i][1]
-                new_row = real_row + piece_move[i][0]
+                new_col = real_col + move[1]
+                new_row = real_row + move[0]
                 if new_col < 0 and new_row < 0:
                     pass
                 elif new_col <= 7 and new_row <= 7 :
-                    white_new = self.board[new_row][new_col].isupper()
-                    black_curr = self.board[new_row][new_col].islower()
-                    diff_color_pieces = (white_new and black_curr) or (not white_new and not black_curr)
-                    if diff_color_pieces or self.board[new_row][new_col] == ".":
+                    different_color_pieces = self.different_color_check((real_row, real_col), (new_row, new_col))
+                    if different_color_pieces or self.board[new_row][new_col] == ".":
                         move_col = letter_lst[(new_col)]
                         move_row = str(num_lst[(new_row)] + 1)
                         valid_moves.append(move_col + move_row)
             elif piece == "p" or piece == "P":
                 if piece.islower():
                     if real_row == 1:
-                        pass
+                        for move in piece_move:
+                            if move:
+                                pass
                     else:
                         pass
                 else:
@@ -114,9 +120,9 @@ class ChessGameEngine:
         if piece.lower() == "k" or piece.lower() == "q":
             dir_moves = [(1, 1),(1, 0),(0, 1),(1, -1),(-1, 1),(-1, -1),(0, -1),(-1, 0)] 
         elif piece == "p": # black pawn
-            dir_moves = [(1, 0), (2, 0), (1, 1), (1, -1)]
+            dir_moves = [(1, 0), (1, 1), (1, -1), (2, 0)]
         elif piece == "P": # white pawn
-            dir_moves = [(-1, 0), (-2, 0), (-1, 1), (-1, -1)]
+            dir_moves = [(-1, 0), (-1, 1), (-1, -1),(-2, 0)]
         elif piece.lower() == "n":
             dir_moves = [(2, 1),(2, -1),(-1, 2),(1, 2),(-2, 1),(-2, -1),(-1, -2),(1, -2)] 
         elif piece.lower() == "b":
