@@ -48,51 +48,51 @@ class ChessGameEngine:
             check_piece_pos = str(input("Enter the piece's position on the current board state to check for valid moves: "))
             print(self.valid_move(check_piece_pos))
             self.player_choice()
-        else:
+        elif len(self.user_input) < 4:
             self.move_piece(self.user_input)
             self.swap_turn()
+        else:
+            print("\nNot a known command/move, try again\n")
 
 
     def swap_turn(self):
         if self.player == 1: self.player += 1
         else: self.player -= 1
 
-    def convert(self, position):
-        num_lst = [7,6,5,4,3,2,1,0]
-        letter_lst = ["a","b","c","d","e","f","g","h"]
-        real_row = num_lst[int(position[1]) - 1]
-        real_col = int(ord(position[0]) - 97)
-        return real_row, real_col 
-
 
     def valid_move(self, str_current_pos):
         if len(str_current_pos) > 2:
             msg = "\nInvalid position\n"
             return msg
+        
+        num_lst = [7,6,5,4,3,2,1,0]
+        letter_lst = ["a","b","c","d","e","f","g","h"]
+        real_row = num_lst[int(str_current_pos[1]) - 1]
+        real_col = int(ord(str_current_pos[0]) - 97)
         valid_moves = []
-        pos = self.convert(str_current_pos)
-        piece_move = self.piece_dir_moves(self.board[p_row][p_col])
+        piece_move = self.piece_dir_moves(self.board[real_row][real_col])
         for i in range(len(piece_move)):
-            if self.board[pos[0]][pos[1]].lower() == "k" or self.board[pos[0]][pos[1]].lower() == "n":
-                new_col = pos[1] + piece_move[i][1]
-                new_row = pos[0] + piece_move[i][0]
+            if self.board[real_row][real_col].lower() == "k" or self.board[real_row][real_col].lower() == "n":
+                new_col = real_col + piece_move[i][1]
+                new_row = real_row + piece_move[i][0]
                 if new_col < 0 and new_row < 0:
                     pass
                 elif new_col <= 7 and new_row <= 7 :
                     white_new = self.board[new_row][new_col].isupper()
-                    black_curr = self.board[p_row][p_col].islower()
+                    black_curr = self.board[new_row][new_col].islower()
                     diff_color_pieces = (white_new and black_curr) or (not white_new and not black_curr)
                     if diff_color_pieces or self.board[new_row][new_col] == ".":
                         move_col = letter_lst[(new_col)]
                         move_row = str(num_lst[(new_row)] + 1)
-            elif self.board[pos[0]][pos[1]] == "p" or self.board[pos[0]][pos[1]] == "P":
-                if self.board[pos[0]][pos[1]].islower():
+                        valid_moves.append(move_col + move_row)
+            elif self.board[real_row][real_col] == "p" or self.board[real_row][real_col] == "P":
+                if self.board[real_row][real_col].islower():
                     pass
                 else:
                     pass
-            elif self.board[pos[0]][pos[1]].lower() == "q" or self.board[pos[0]][pos[1]].lower() == "r" or self.board[pos[0]][pos[1]].lower() == "b":
+            elif self.board[real_row][real_col].lower() == "q" or self.board[real_row][real_col].lower() == "r" or self.board[real_row][real_col].lower() == "b":
                 pass
-            valid_moves.append(move_col+move_row)
+            
         print("\nValid moves for the piece: ")
         return valid_moves
 
@@ -120,7 +120,7 @@ class ChessGameEngine:
 
 
     def move_piece(self, move):
-            curr = self.board[self.user_input[:2]]
-            move_pos = self.board[self.user_input[2:]]
-            if len(curr_pos) == 2 and len(move_pos) == 2:
-                return
+        curr = self.board[self.user_input[:2]]
+        move_pos = self.board[self.user_input[2:]]
+        if len(curr_pos) == 2 and len(move_pos) == 2:
+            return
