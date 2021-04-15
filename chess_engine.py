@@ -40,14 +40,14 @@ class ChessGameEngine:
 
 
     def player_choice(self):
-        print("Player " + str(self.player)+"'s turn, what do you want to do? ")
+        print("Player " + str(self.player)+"'s turn, what's your move? ")
         self.user_input = input("Enter here: ")
         if (self.user_input.lower() == "quit"):
             self.game_over = True
+            self.player_choice()
         elif (self.user_input.lower() == "check"):
             check_piece_pos = str(input("Enter the piece's position on the current board state to check for valid moves: "))
             print(self.valid_moves(check_piece_pos))
-            self.player_choice()
         elif len(self.user_input) < 4:
             self.move_piece(self.user_input)
             self.swap_turn()
@@ -67,7 +67,40 @@ class ChessGameEngine:
         return diff_color_pieces
 
 
-    def valid_moves(self, str_current_pos):
+    def valid_move(self, str_current_pos, str_dest_pos):
+        if len(str_current_pos) > 2:
+            msg = "\nInvalid position\n"
+            return msg
+        num_lst = [7,6,5,4,3,2,1,0]
+        letter_lst = ["a","b","c","d","e","f","g","h"]
+        curr_pos_row = num_lst[int(str_current_pos[1]) - 1]
+        curr_pos_col = int(ord(str_current_pos[0]) - 97)
+        dest_pos_row = num_lst[int(str_dest_pos[1]) - 1]
+        dest_pos_col = int(ord(str_dest_pos[0]) - 97)
+        piece = self.board[curr_pos_row][curr_pos_col]
+        piece_dest = self.board[dest_pos_row][dest_pos_col]
+        valid_square = different_color_check(piece, piece_dest) and piece_dest == "."
+        valid = False
+        if piece.lower() == "r":
+            if (curr_pos_row == dest_pos_row or curr_pos_col == dest_pos_col) and valid_square:
+                valid = True
+        elif piece.lower() == "b":
+            if (abs(curr_pos_row - dest_pos_row) == abs(curr_pos_col - dest_pos_col)) and valid_square:
+                valid = True
+        elif piece.lower() == "q":
+            if (curr_pos_row == dest_pos_row or curr_pos_col == dest_pos_col) or (abs(curr_pos_row - dest_pos_row) == abs(curr_pos_col - dest_pos_col)) and valid_square:
+                valid = True
+        elif piece.lower() == "n":
+            if (curr_pos_row == dest_pos_row or curr_pos_col == dest_pos_col) and valid_square:
+                valid = True
+        elif piece.lower() == "k":
+            if (curr_pos_row == dest_pos_row or curr_pos_col == dest_pos_col) and valid_square:
+                valid = True
+        elif piece.lower() == "p":
+            if (curr_pos_row == dest_pos_row or curr_pos_col == dest_pos_col) and valid_square:
+                valid = True
+
+    def possible_moves(self, str_current_pos):
         if len(str_current_pos) > 2:
             msg = "\nInvalid position\n"
             return msg
@@ -121,7 +154,6 @@ class ChessGameEngine:
         print("\nValid moves for the piece: ")
         return valid_moves
 
-
     def piece_dir_moves(self, piece):
         """
         This funciton returns the directions of which the piece can move on the board, mainly applies to all the pieces except for 
@@ -143,12 +175,12 @@ class ChessGameEngine:
             dir_moves = [(0, 1), (0, -1), (-1, 0), (1, 0)]
         return dir_moves
 
-
     def move_piece(self, move):
-        curr = self.board[self.user_input[:2]]
+        curr_pos = self.board[self.user_input[:2]]
         move_pos = self.board[self.user_input[2:]]
-        if len(curr_pos) == 2 and len(move_pos) == 2:
-            return
+        if self.valid_move(curr_pos, move_pos):
+            if len(curr_pos) == 2 and len(move_pos) == 2:
+                return
 
 if __name__ == "__main__":
     ChessGameEngine(1)
