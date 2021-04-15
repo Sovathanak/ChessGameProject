@@ -8,5 +8,6 @@ class Chess:
         chess_engine.ChessGameEngine(self.player)
     
     
+if __name__ == "__main__":
+    Chess()
 
-game = Chess()
