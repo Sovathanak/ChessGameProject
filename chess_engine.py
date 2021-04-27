@@ -67,40 +67,7 @@ class ChessGameEngine:
         return diff_color_pieces
 
 
-    def valid_move(self, str_current_pos, str_dest_pos):
-        if len(str_current_pos) > 2:
-            msg = "\nInvalid position\n"
-            return msg
-        num_lst = [7,6,5,4,3,2,1,0]
-        letter_lst = ["a","b","c","d","e","f","g","h"]
-        curr_pos_row = num_lst[int(str_current_pos[1]) - 1]
-        curr_pos_col = int(ord(str_current_pos[0]) - 97)
-        dest_pos_row = num_lst[int(str_dest_pos[1]) - 1]
-        dest_pos_col = int(ord(str_dest_pos[0]) - 97)
-        piece = self.board[curr_pos_row][curr_pos_col]
-        piece_dest = self.board[dest_pos_row][dest_pos_col]
-        valid_square = different_color_check(piece, piece_dest) and piece_dest == "."
-        valid = False
-        if piece.lower() == "r":
-            if (curr_pos_row == dest_pos_row or curr_pos_col == dest_pos_col) and valid_square:
-                valid = True
-        elif piece.lower() == "b":
-            if (abs(curr_pos_row - dest_pos_row) == abs(curr_pos_col - dest_pos_col)) and valid_square:
-                valid = True
-        elif piece.lower() == "q":
-            if (curr_pos_row == dest_pos_row or curr_pos_col == dest_pos_col) or (abs(curr_pos_row - dest_pos_row) == abs(curr_pos_col - dest_pos_col)) and valid_square:
-                valid = True
-        elif piece.lower() == "n":
-            if (curr_pos_row == dest_pos_row or curr_pos_col == dest_pos_col) and valid_square:
-                valid = True
-        elif piece.lower() == "k":
-            if (curr_pos_row == dest_pos_row or curr_pos_col == dest_pos_col) and valid_square:
-                valid = True
-        elif piece.lower() == "p":
-            if (curr_pos_row == dest_pos_row or curr_pos_col == dest_pos_col) and valid_square:
-                valid = True
-
-    def possible_moves(self, str_current_pos):
+    def valid_moves(self, str_current_pos):
         if len(str_current_pos) > 2:
             msg = "\nInvalid position\n"
             return msg
