@@ -44,7 +44,6 @@ class ChessGameEngine:
         self.user_input = input("Enter here: ")
         if (self.user_input.lower() == "quit"):
             self.game_over = True
-            self.player_choice()
         elif (self.user_input.lower() == "check"):
             check_piece_pos = str(input("Enter the piece's position on the current board state to check for valid moves: "))
             print(self.valid_moves(check_piece_pos))
