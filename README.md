@@ -28,5 +28,3 @@ Assuming that we are at the starting position and you are white, you want to mov
 Let's analyze the string "e2e4" for a bit, "e2" here represents the current position of the piece that you want to 
 move (in this case the piece in that position is the white pawn),and "e4" on the otherhand is the position that you 
 want to move that piece to.
-
-A game by Sovathanak Meas
